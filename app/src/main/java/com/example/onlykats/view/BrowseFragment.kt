@@ -17,5 +17,11 @@ class BrowseFragment : Fragment(R.layout.fragment_browse) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBrowseBinding.bind(view)
+
+
+    }
+
+    fun testMethod(num: Int): Int {
+        return num + 1
     }
 }
