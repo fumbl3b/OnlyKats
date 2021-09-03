@@ -17,8 +17,4 @@ class BrowseFragment : Fragment(R.layout.fragment_browse) {
 
 
     }
-
-    fun testMethod(num: Int): Int {
-        return num + 1
-    }
 }

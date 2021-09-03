@@ -6,34 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
+<androidx.fragment.app.FragmentContainerView
+    android:id="@+id/nav_host_fragment_container"
+    android:name="com.example.onlykats.view.BrowseFragment"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/cat_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/cat_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    app:defaultNavHost="true"
+    app:navGraph="@navigation/nav_graph" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/cat_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cat Me"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".8" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="228dp"
+        android:layout_height="12dp"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="340dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

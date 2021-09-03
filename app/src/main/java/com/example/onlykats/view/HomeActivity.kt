@@ -19,7 +19,6 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        binding.catButton.setOnClickListener() // TODO: display image
     }
 
 
