@@ -1,31 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.BrowseFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_kats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/browse_fragment_title"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
 
         <TextView
+            android:id="@+id/browse_fragment_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Browse Fragment" />
+            android:text="Browse Fragment"
+            app:layout_constraintTop_toBottomOf="@id/rv_kats"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/settings_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SETTINGS" />
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/settings_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="SETTINGS" />-->
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/detail_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DETAIL" />
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/detail_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="DETAIL" />-->
 
-    </LinearLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
