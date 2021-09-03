@@ -5,9 +5,27 @@
     android:layout_height="match_parent"
     tools:context=".view.BrowseFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Browse Fragment" />
+        android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Browse Fragment" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/settings_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SETTINGS" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/detail_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DETAIL" />
+
+    </LinearLayout>
 </FrameLayout>
