@@ -3,14 +3,17 @@ package com.example.onlykats.repo
 import android.util.Log
 import com.example.onlykats.model.Kat
 import com.example.onlykats.model.KatResponse
+import com.example.onlykats.repo.remote.KatService
 import com.example.onlykats.repo.remote.RetrofitInstance
 
-class KatRepo(private val instance: RetrofitInstance) {
+object KatRepo {
+    private const val TAG = "KAT-REPO"
 
-    val TAG = "KatRepo"
+    private val katService by lazy { RetrofitInstance.katService }
 
-    suspend fun getKats(limit: Int, page: Int, order: String): List<Kat>? {
-        val katResult = RetrofitInstance.katService.getKatImages(limit, page, order)
+    suspend fun getKats(limit: Int, page: Int): List<Kat>? {
+
+        val katResult = katService.getKatImages(limit, page)
 
         return if (katResult.isSuccessful) {
             Log.e(TAG, "getKats: was successful. Got Kats.")
