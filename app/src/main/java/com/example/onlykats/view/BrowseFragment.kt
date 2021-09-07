@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,18 +19,14 @@ import com.example.onlykats.viewModel.KatViewModel
 class BrowseFragment : Fragment(R.layout.fragment_browse) {
 
     private lateinit var binding: FragmentBrowseBinding
-    private val katViewModel = ViewModelProvider(this).get(KatViewModel::class.java)
-    var listOfKats: List<Kat> = listOf()
+
+    private val katViewModel by viewModels<KatViewModel>()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBrowseBinding.bind(view)
         initViews()
-        katViewModel.getKats(30,5,"desc")
-        katViewModel.katList.observe(viewLifecycleOwner) { katList ->
-            listOfKats = katList
-            binding.rvKats.adapter = KatAdapter(listOfKats)
-        }
     }
 
     private fun initViews() = with(binding) {

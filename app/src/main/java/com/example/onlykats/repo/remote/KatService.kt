@@ -13,8 +13,8 @@ interface KatService {
     @GET("v1/images/search")
     suspend fun getKatImages(
         @Query("limit") limit: Int,
-        @Query("page") page: Int = 1,
-        @Query("order") order: Order = Order.DESC
+        @Query("page") page: Int,
+        @Query("order") order: Order
     ): Response<List<Kat>>
 
 }
