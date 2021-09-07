@@ -1,9 +1,7 @@
 package com.example.onlykats.util
 
-import com.example.onlykats.model.Kat
-
-sealed class ApiState {
-    data class Success(val data: List<Kat>)
-    data class Error(val msg: String)
-    object Loading
+sealed class ApiState<out R> {
+    data class Success<T>(val data: T) : ApiState<T>()
+    data class Error(val msg: String) : ApiState<Nothing>()
+    object Loading : ApiState<Nothing>()
 }

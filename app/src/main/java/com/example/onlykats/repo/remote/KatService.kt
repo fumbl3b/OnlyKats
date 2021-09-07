@@ -1,6 +1,7 @@
 package com.example.onlykats.repo.remote
 
 import com.example.onlykats.model.Kat
+import com.example.onlykats.util.Order
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -13,7 +14,7 @@ interface KatService {
     suspend fun getKatImages(
         @Query("limit") limit: Int,
         @Query("page") page: Int = 1,
-        @Query("order") order: String = "desc" // maybe "DESC"? idk
+        @Query("order") order: Order = Order.DESC
     ): Response<List<Kat>>
 
 }
