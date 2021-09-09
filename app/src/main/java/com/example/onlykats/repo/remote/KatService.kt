@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface KatService {
 
-    @Headers("x-api-key: ce2b30e0-4e86-48aa-a13c-8167ca0e4857")
+    @Headers("x-api-key: 1fa2c5c0-305d-4305-8edc-2efcbf37b9b4")
     @GET("v1/images/search")
     suspend fun getKatImages(
         @Query("limit") limit: Int,
