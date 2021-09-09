@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -30,7 +33,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding true;
+        viewBinding true
     }
 }
 
@@ -40,7 +43,40 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-    testImplementation 'junit:junit:4.+'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // Networking
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    // Parsing JSON
+    implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.12.0'
+    // Retrofit/Moshi Bridge
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+    // Fragment Ktx (for initializing ViewModel)
+    implementation 'androidx.fragment:fragment-ktx:1.3.6'
+
+    // Navigation Component
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+
+    // Image Loading
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    kapt 'com.github.bumptech.glide:compiler:4.12.0'
+
+    // Dependency injection - TODO: watch some videos on this
+    implementation 'com.google.dagger:hilt-android:2.38.1'
+    kapt 'com.google.dagger:hilt-compiler:2.38.1'
+
+    // Data Persistence [small data]
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // Data persistence [large data SQLite]
+    implementation "androidx.room:room-runtime:2.3.0"
+    kapt "androidx.room:room-compiler:2.3.0"
+
+
 }
