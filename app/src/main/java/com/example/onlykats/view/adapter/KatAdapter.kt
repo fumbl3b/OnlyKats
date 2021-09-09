@@ -1,38 +1,51 @@
 package com.example.onlykats.view.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onlykats.databinding.KatItemBinding
+import com.example.onlykats.databinding.ItemKatBinding
 import com.example.onlykats.model.Kat
 import com.example.onlykats.util.loadWithGlide
-import kotlinx.coroutines.NonDisposableHandle
-import kotlinx.coroutines.NonDisposableHandle.parent
 
-class KatAdapter(val katList: List<Kat>) : RecyclerView.Adapter<KatAdapter.KatViewHolder>() {
+/**
+ * ListView - loads all objects into memory
+ * RecyclerView - Leverages the ViewHolder Pattern to optimizing scrolling and memory consumption
+ * ListAdapter - Same as Recyclerview but we don't have to use the notify methods to update the adapter
+ */
+class KatAdapter(
+    private val katList: MutableList<Kat> = mutableListOf()
+) : RecyclerView.Adapter<KatAdapter.KatViewHolder>() {
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KatViewHolder {
-        val katItemBinding: KatItemBinding =
-            KatItemBinding.inflate(LayoutInflater.from(parent.context))
-
-        return KatViewHolder(katItemBinding)
-    }
+    override fun onCreateViewHolder(
+        parent: ViewGroup, viewType: Int
+    ) = KatViewHolder.getInstance(parent)
 
     override fun onBindViewHolder(holder: KatViewHolder, position: Int) {
-        holder.bind(katList[position])
+        holder.loadKat(katList[position])
     }
 
-    override fun getItemCount(): Int = katList.size
+    override fun getItemCount() = katList.size
 
+    fun updateList(kats: List<Kat>) {
+        val positionStart = katList.size
+        katList.addAll(kats)
+        notifyItemRangeInserted(positionStart, kats.size)
+    }
 
-    class KatViewHolder(val binding: KatItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(katItem: Kat) {
-            // do binding stuff
-            with(binding) {
-                val katUrl = katItem.url ?: "" // TODO: put default value here
-                katImage.loadWithGlide(katUrl)
+    class KatViewHolder(
+        private val binding: ItemKatBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun loadKat(kat: Kat) = with(binding) {
+            ivKat.loadWithGlide(kat.url)
+        }
+
+        companion object {
+            fun getInstance(parent: ViewGroup): KatViewHolder {
+                val binding = ItemKatBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                return KatViewHolder(binding)
             }
         }
     }

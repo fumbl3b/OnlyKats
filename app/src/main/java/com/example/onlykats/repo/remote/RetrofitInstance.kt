@@ -15,6 +15,7 @@ object RetrofitInstance {
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
 
-    val katService : KatService by lazy { retrofit.create(KatService::class.java) }
+    val katService: KatService by lazy { retrofit.create(KatService::class.java) }
 
 }
+
