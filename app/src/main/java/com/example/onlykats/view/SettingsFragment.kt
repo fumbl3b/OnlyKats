@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.onlykats.R
 import com.example.onlykats.databinding.FragmentSettingsBinding
-import com.example.onlykats.model.Breed
 import com.example.onlykats.model.Settings
 import com.example.onlykats.util.ApiState
 import com.example.onlykats.viewmodel.KatViewModel
@@ -36,10 +35,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private fun initView() = with(binding) {
         getSettings()
-        sliderLimit.addOnChangeListener { _, value, _ ->
-            val isLimitNew = value.toInt() != katViewModel.limit
-            toggleApply(isLimitNew)
-        }
+        sliderLimit.value = katViewModel.limit.toFloat()
+
     }
 
     private fun translateTextToId(str: String, map: Map<String, String>): String {
@@ -77,11 +74,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         }
 
         btnApply.setOnClickListener {
-            val b = if (breedMenuEditText?.text.toString().isNullOrEmpty()) ""
+            val b = if (breedMenuEditText?.text.toString().isNullOrEmpty()) null
                 else translateTextToId(breedMenuEditText?.text.toString(), bm)
-            val c = if (categoryMenuEditText?.text.toString().isNullOrEmpty()) ""
+            val c = if (categoryMenuEditText?.text.toString().isNullOrEmpty()) null
                 else translateTextToId(categoryMenuEditText?.text.toString(), cm)
-            katViewModel.fetchKatList(sliderLimit.value.toInt(),b, c)
+            katViewModel.fetchKatList(sliderLimit.value.toInt(),b, c, 0)
         }
 
         val breedsList = ArrayList<String>()
@@ -98,9 +95,5 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         val categoryAdapter = ArrayAdapter(requireContext(), R.layout.setting_list_item, categoriesList)
         (categoryMenuEditText as? AutoCompleteTextView)?.setAdapter(categoryAdapter)
 
-    }
-
-    private fun toggleApply(dataChanged: Boolean) {
-        binding.btnApply.isVisible = dataChanged
     }
 }

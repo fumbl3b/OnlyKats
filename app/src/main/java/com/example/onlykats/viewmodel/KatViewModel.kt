@@ -30,26 +30,32 @@ class KatViewModel : ViewModel() {
     var limit = 0
     var page = 0
         set(value) {
-            if (value > field && isNextPage) fetchKatList(this.limit,this.categoryIds,this.breedId)
+            if (value > field && isNextPage) fetchKatList(this.limit,this.categoryIds,this.breedId, this.page)
             field = value
         }
     var isNextPage = true
 
     val TAG = "KatViewModel"
 
-    fun fetchKatList(limit: Int, categoryIds: String?, breedId: String?) {
+    fun fetchKatList(limit: Int, categoryIds: String?, breedId: String?, page: Int) {
 
         Log.d(TAG, "fetchKatList: $settingsState")
         
         Log.d(TAG, "fetchKatList: $limit , $categoryIds, $breedId")
-        if(limit != this.limit || categoryIds != this.categoryIds || breedId != breedId) {
+        if(limit != this.limit || categoryIds != this.categoryIds || breedId != this.breedId) {
             this.limit = limit
             this.categoryIds = categoryIds
             this.breedId = breedId
+            this.page = page
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            KatRepo.getKatState(limit.toString(), page.toString(), Order.DESC, categoryIds, breedId)
+            KatRepo.getKatState(
+                limit.toString(),
+                page.toString(),
+                Order.DESC,
+                categoryIds,
+                breedId)
                 .collect { katState ->
                     isNextPage =
                         !(katState is ApiState.Failure && katState.errorMsg == KatRepo.NO_DATA_FOUND)

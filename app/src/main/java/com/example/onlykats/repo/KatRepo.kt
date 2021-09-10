@@ -29,6 +29,7 @@ object KatRepo {
                 categoryIds?.let { "category_ids" to it }
         ).toMap()
 
+
         Log.d(TAG, "getKatState: ${queryMap.entries}")
         val katResponse = katService.getKatImages(queryMap)
 
