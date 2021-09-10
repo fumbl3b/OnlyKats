@@ -33,7 +33,7 @@ class BrowseFragment : Fragment(R.layout.fragment_browse) {
     // with(receiver) is 1 of 5 scope functions
     private fun initViews() = with(binding) {
         rvKats.adapter = KatAdapter()
-        rootNestedScrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        rootNestedScrollView.setOnScrollChangeListener { v, _, scrollY, _, _ ->
             // on scroll change we are checking when users scroll as bottom.
             if (scrollY == (v as NestedScrollView).getChildAt(0).measuredHeight - v.getMeasuredHeight()) {
                 // in this method we are incrementing page number,

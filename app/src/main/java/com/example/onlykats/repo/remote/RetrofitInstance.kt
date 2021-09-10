@@ -16,6 +16,7 @@ object RetrofitInstance {
         .build()
 
     val katService: KatService by lazy { retrofit.create(KatService::class.java) }
+    val settingsService: SettingsService by lazy { retrofit.create(SettingsService::class.java)}
 
 }
 
