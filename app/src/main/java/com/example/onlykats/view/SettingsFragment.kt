@@ -1,6 +1,5 @@
 package com.example.onlykats.view
 
-import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.onlykats.R
 import com.example.onlykats.databinding.FragmentSettingsBinding
-import com.example.onlykats.model.Category
+import com.example.onlykats.model.Breed
 import com.example.onlykats.model.Settings
 import com.example.onlykats.util.ApiState
 import com.example.onlykats.viewmodel.KatViewModel
@@ -25,24 +24,28 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private lateinit var binding: FragmentSettingsBinding
     private val katViewModel by activityViewModels<KatViewModel>()
+    private lateinit var breedsMap: Map<String, String>
+    private val categoryMap: Map<String, String> = mutableMapOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSettingsBinding.bind(view)
         initView()
         setupObservers()
-        getSettings()
     }
 
     private fun initView() = with(binding) {
+        getSettings()
         sliderLimit.addOnChangeListener { _, value, _ ->
             val isLimitNew = value.toInt() != katViewModel.limit
             toggleApply(isLimitNew)
         }
-        btnApply.setOnClickListener {
-            katViewModel.limit = sliderLimit.value.toInt()
-            katViewModel.fetchKatList()
-        }
+    }
+
+    private fun translateTextToId(str: String, map: Map<String, String>): String {
+        val res = map.getValue(str)
+        Log.d(TAG, "translateTextToId: $res")
+        return res
     }
 
     private fun getSettings() = with(binding){
@@ -61,18 +64,40 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         }
     }
 
-    private fun handleSuccess(settings: Settings) {
+    private fun handleSuccess(settings: Settings) = with(binding) {
 
+        val bm = mutableMapOf<String,String>()
+        val cm = mutableMapOf<String,String>()
 
-        // TODO: figure out how to have the id tied in here
+        for (breed in settings.breeds!!) {
+            if (breed.name != null && breed.id != null) bm[breed.name] = breed.id
+        }
+        for (category in settings.categories!!) {
+            if( category.name != null && category.id != null) cm[category.name] = category.id.toString()
+        }
+
+        btnApply.setOnClickListener {
+            val b = if (breedMenuEditText?.text.toString().isNullOrEmpty()) ""
+                else translateTextToId(breedMenuEditText?.text.toString(), bm)
+            val c = if (categoryMenuEditText?.text.toString().isNullOrEmpty()) ""
+                else translateTextToId(categoryMenuEditText?.text.toString(), cm)
+            katViewModel.fetchKatList(sliderLimit.value.toInt(),b, c)
+        }
+
         val breedsList = ArrayList<String>()
         for (breed in settings.breeds!!) {
             breed.name?.let { breedsList.add(it) }
         }
-        val adapter = ArrayAdapter(requireContext(), R.layout.breed_list_item, breedsList)
-        (binding.breedMenuEditText as? AutoCompleteTextView)?.setAdapter(adapter)
+        val breedAdapter = ArrayAdapter(requireContext(), R.layout.setting_list_item, breedsList)
+        (breedMenuEditText as? AutoCompleteTextView)?.setAdapter(breedAdapter)
 
-        val categoriesList = ArrayList<Category>()
+        val categoriesList = ArrayList<String>()
+        for (category in settings.categories!!) {
+            category.name?.let { categoriesList.add(it) }
+        }
+        val categoryAdapter = ArrayAdapter(requireContext(), R.layout.setting_list_item, categoriesList)
+        (categoryMenuEditText as? AutoCompleteTextView)?.setAdapter(categoryAdapter)
+
     }
 
     private fun toggleApply(dataChanged: Boolean) {

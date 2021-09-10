@@ -1,11 +1,10 @@
 package com.example.onlykats.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.onlykats.model.Breed
-import com.example.onlykats.model.Category
 import com.example.onlykats.model.Kat
 import com.example.onlykats.model.Settings
 import com.example.onlykats.repo.KatRepo
@@ -31,13 +30,24 @@ class KatViewModel : ViewModel() {
     var limit = 0
     var page = 0
         set(value) {
-            if (value > field && isNextPage) fetchKatList()
+            if (value > field && isNextPage) fetchKatList(this.limit,this.categoryIds,this.breedId)
             field = value
         }
     var isNextPage = true
 
+    val TAG = "KatViewModel"
 
-    fun fetchKatList() {
+    fun fetchKatList(limit: Int, categoryIds: String?, breedId: String?) {
+
+        Log.d(TAG, "fetchKatList: $settingsState")
+        
+        Log.d(TAG, "fetchKatList: $limit , $categoryIds, $breedId")
+        if(limit != this.limit || categoryIds != this.categoryIds || breedId != breedId) {
+            this.limit = limit
+            this.categoryIds = categoryIds
+            this.breedId = breedId
+        }
+
         viewModelScope.launch(Dispatchers.IO) {
             KatRepo.getKatState(limit.toString(), page.toString(), Order.DESC, categoryIds, breedId)
                 .collect { katState ->

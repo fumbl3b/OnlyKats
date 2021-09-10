@@ -1,5 +1,6 @@
 package com.example.onlykats.repo
 
+import android.util.Log
 import com.example.onlykats.repo.remote.RetrofitInstance
 import com.example.onlykats.util.ApiState
 import com.example.onlykats.util.Order
@@ -28,6 +29,7 @@ object KatRepo {
                 categoryIds?.let { "category_ids" to it }
         ).toMap()
 
+        Log.d(TAG, "getKatState: ${queryMap.entries}")
         val katResponse = katService.getKatImages(queryMap)
 
         val state = if (katResponse.isSuccessful) {

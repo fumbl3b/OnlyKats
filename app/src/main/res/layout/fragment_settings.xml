@@ -31,49 +31,6 @@
         app:layout_constraintTop_toBottomOf="@id/label_slider_limit" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/label_categories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:labelFor="@id/categories_chip_group"
-        android:text="Categories"
-        android:textAppearance="?attr/textAppearanceHeadline5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/slider_limit" />
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/categories_chip_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/label_categories">
-
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="category1" />
-
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="category2" />
-
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="category3" />
-
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="category4" />
-
-    </com.google.android.material.chip.ChipGroup>
-
-
-    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/label_breeds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,7 +38,7 @@
         android:text="Breeds"
         android:textAppearance="?attr/textAppearanceHeadline5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/categories_chip_group" />
+        app:layout_constraintTop_toBottomOf="@id/slider_limit" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/breed_menu"
@@ -100,6 +57,35 @@
             android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/label_categories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/category_menu"
+        android:text="Categories"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/breed_menu" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/category_menu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Select Categories"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintTop_toBottomOf="@id/label_categories">
+
+        <AutoCompleteTextView
+            android:id="@+id/category_menu_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_apply"

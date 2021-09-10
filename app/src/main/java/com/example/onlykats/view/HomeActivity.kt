@@ -12,7 +12,7 @@ import com.example.onlykats.viewmodel.KatViewModel
 class HomeActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityHomeBinding.inflate(layoutInflater) }
-    private val katViewModel by viewModels<KatViewModel>()
+    // private val katViewModel by viewModels<KatViewModel>()
     private val navHostFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
     }

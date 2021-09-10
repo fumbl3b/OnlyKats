@@ -1,5 +1,6 @@
 package com.example.onlykats.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,8 @@ class KatAdapter(
     private val katList: MutableList<Kat> = mutableListOf()
 ) : RecyclerView.Adapter<KatAdapter.KatViewHolder>() {
 
+    val TAG = "KatAdapter"
+
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ) = KatViewHolder.getInstance(parent)
@@ -28,10 +31,14 @@ class KatAdapter(
 
     fun updateList(kats: List<Kat>) {
         // TODO: check if settings changed
-
         val positionStart = katList.size
         katList.addAll(kats)
         notifyItemRangeInserted(positionStart, kats.size)
+    }
+
+    fun clearList() {
+        katList.clear()
+        Log.d(TAG, "clearList: KatList cleared")
     }
 
     class KatViewHolder(
