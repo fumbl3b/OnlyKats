@@ -14,7 +14,7 @@ object KatRepo {
 
     fun getKatState(
         limit: String,
-        page: String = "1",
+        page: String,
         order: Order = Order.DESC,
         breedId: String? ,
         categoryIds: String?
